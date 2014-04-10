@@ -3,6 +3,11 @@ ParabolicPDEs
 
 Finite differences project. MAPM312
 
+All the different tasks that need completing for this project are listed
+on the issues page (might have missed some). We'll assign everyone
+different issues to work on and discuss relatant details on those
+threads.
+
 ## Folder structure
 
 `src` contains all MATLAB code and `txt` contains the text for the
