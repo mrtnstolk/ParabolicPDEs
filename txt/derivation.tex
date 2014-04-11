@@ -1,1 +1,57 @@
 \section{Derivation}
+
+From the problem statement we have the following system of PDEs.
+
+\begin{subequations} \label{eq:system}
+\begin{align}
+u_t &= D_u u_{xx} + u(1-u) - \frac{auv}{1+\lambda u} \label{eq:prey}\\
+v_t &= D_v v_{xx} - \frac{v}{ab} + \frac{auv}{b(1+\lambda u)} \label{eq:pred}
+\end{align}
+\end{subequations}
+
+We use the following finite difference approximations, derived from the
+Taylor series expansion, in place of the $u_t$, $u_{xx}$, $v_t$, and
+$v_{xx}$ in equations \eqref{eq:system}.
+
+\begin{subequations} \label{eq:taylor}
+\begin{align}
+u_t &= \frac{u(x,t+k)-u(x,t)}{k} - \frac{k}{2} u_{tt}(x,\tau) \label{eq:u_t} \\
+v_t &= \frac{v(x,t+k)-v(x,t)}{k} - \frac{k}{2} v_{tt}(x,\sigma) \label{eq:v_t} \\
+u_{xx} &= \frac{u(x-h,t)-2u(x,t)+u(x+h,t)}{h^2} - \frac{h^2}{12} u_{xxxx}(\xi,t) \label{eq:u_xx} \\
+v_{xx} &= \frac{v(x-h,t)-2v(x,t)+v(x+h,t)}{h^2} - \frac{h^2}{12} v_{xxxx}(\epsilon,t) \label{eq:v_xx}
+\end{align}
+\end{subequations}
+
+By discarding the truncation terms from equations \eqref{eq:taylor} and
+letting $\ub_{i,j}$ and $\vb_{i,j}$ approximate the true solutions
+$u(x_i,t_j)$ and $v(x_i,t_j)$ respectively we can replace equations
+\eqref{eq:system} with the following system of equations.
+
+\begin{subequations} \label{eq:approx_sys}
+\begin{align}
+\frac{\ub_{i,j+1} - \ub_{i,j}}{k} &=
+    D_u \left( \frac{\ub_{i-1,j}-2\ub_{i,j}+\ub{i+1,j}}{h^2} \right) +
+    \ub_{i,j}(1-\ub_{i,j-1}) -
+    \frac{a\ub_{i,j}\vb_{i,j}}{1+\lambda \ub_{i,j-1}} \label{eq:approx_prey}
+    \\
+\frac{\vb_{i,j+1} - \vb_{i,j}}{k} &=
+    D_v \left( \frac{\vb_{i-1,j}-2\vb_{i,j}+\vb{i+1,j}}{h^2} \right) -
+    \frac{\vb_{i,j}}{ab} +
+    \frac{a\ub_{i,j}\vb_{i,j}}{1+\lambda \ub_{i,j-1}} \label{eq:approx_pred}
+\end{align}
+\end{subequations}
+
+Multiplying equations \eqref{eq:approx_sys} throughout by $k$ and
+rearranging the terms yields:
+
+\begin{subequations} \label{eq:rearranged_approx_sys}
+\begin{align}
+\ub_{i,j+1} &= r_u \ub_{i-1,j} + (1 - 2r_u) \ub_{i,j} + r_u \ub_{i+1,j} +
+    k \ub_{i,j} - k \ub_{i,j-1} - \frac{ka\ub_{i,j}\vb_{i,j}}{1+\lambda \ub_{i,j-1}} \label{eq:rearranged_prey}
+    \\
+\vb_{i,j+1} &= r_v \vb_{i-1,j} + (1 - 2r_v) \vb_{i,j} + r_v \vb_{i+1,j} -
+    \frac{k\vb_{i,j}}{ab} + \frac{ka\ub_{i,j}\vb_{i,j}}{b(1+\lambda \ub_{i,j})} \label{eq:rearranged_pred}
+\end{align}
+\end{subequations}
+
+where $r_u = D_u k / h^2$ and $r_v = D_v k / h^2$.
