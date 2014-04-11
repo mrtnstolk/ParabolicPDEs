@@ -8,6 +8,13 @@ on the issues page (might have missed some). We'll assign everyone
 different issues to work on and discuss related details on those
 threads.
 
+## Report
+
+The report is currently written in LaTeX since it makes adding equations trivial
+and works well with git. If you've not used it before then 
+[en.wikibooks.org/wiki/LaTeX](https://en.wikibooks.org/wiki/LaTeX) should be
+enough to get started with. Any better solutions are welcome though.
+
 ## Folder structure
 
 `src` contains all MATLAB code and `txt` contains the text for the
