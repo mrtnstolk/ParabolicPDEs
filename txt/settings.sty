@@ -1,0 +1,28 @@
+\usepackage{amsmath}
+
+\usepackage{hyperref}
+\hypersetup{
+    linktocpage,
+    colorlinks,
+    linkcolor=blue
+}
+
+\renewcommand{\maketitle}{
+    \thispagestyle{empty}
+    \begin{center}
+
+        \LARGE
+        \textbf{\@title} \\[35pt]
+
+        \large
+        \@author
+
+        \vfill
+
+        \small
+        \@date
+
+    \end{center}
+    \newpage
+    \setcounter{page}{1}
+}

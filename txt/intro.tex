@@ -1,0 +1,16 @@
+\section{Introduction}
+
+\subsection{Problem Statement}
+
+The following set of coupled partial differential equations will be
+analyised at the hand of the FTCS model:
+
+\begin{align*}
+\frac{\partial u}{\partial t} &= D_u \frac{\partial^2 u}{\partial x^2} +
+                                 u(u - 1) - \frac{auv}{1+\lambda u} \\
+\frac{\partial v}{\partial t} &= D_v \frac{\partial^2 v}{\partial x^2} -
+                                 \frac{v}{ab} + \frac{auv}{b(1+\lambda u)} \\
+                                 \\
+                              & a \leq x \leq b, \quad 0 \leq t \\
+                              & u_x(a,t) = 0, \quad u_x(b,t) = 0
+\end{align*}
