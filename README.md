@@ -29,6 +29,11 @@ Some initial documents related to parabolic PDEs and coupled equations.
 
 * [Coupled equations](http://www.math.leidenuniv.nl/scripties/KorsuizeBachelor.pdf)
 * [Has a section on parabolic PDEs](http://www.sml.ee.upatras.gr/UploadedFiles/BOOK-CK/06-PartialDifferentialEquations.pdf)
+* [Crank Nicolson method](http://mat.iitm.ac.in/home/sryedida/public_html/caimna/pde/fifth/5.html)
+* [Implicit Methods: the Crank-Nicolson Algorithm](http://www.dynamicearth.de/Lectures/FortgGeodyn.WiSe10/Tutorial/Day2/cranknicholson.pdf)
+* [Crank Nicolson Scheme for the Heat Equation](http://people.sc.fsu.edu/~jpeterson/5-CrankNicolson.pdf)
+* [Crank Nicolson method](http://www3.msiu.ru/~belova/compmod/Crank_nic.pdf)
+* [General Finite Difference Methods](http://www.math.yorku.ca/~hmzhu/Math-6911/lectures/Lecture5/5_BlkSch_FDM.pdf)
 
 ### Books
 
