@@ -4,9 +4,18 @@ From the problem statement we have the following system of PDEs.
 
 \begin{subequations} \label{eq:system}
 \begin{align}
-u_t &= D_u u_{xx} + u(1-u) - \frac{auv}{1+\lambda u} \label{eq:prey}\\
-v_t &= D_v v_{xx} - \frac{v}{ab} + \frac{auv}{b(1+\lambda u)} \label{eq:pred}
+    u_t &= D_u u_{xx} + f(u,v) \label{eq:prey} \\
+    v_t &= D_v v_{xx} + g(u,v) \label{eq:pred}
 \end{align}
+\end{subequations}
+
+where
+
+\begin{subequations}
+\begin{align*}
+    f(u,v) &= u(1-u) - \frac{auv}{1+\lambda u} \\
+    g(u,v) &= - \frac{v}{ab} + \frac{auv}{b(1+\lambda u)}
+\end{align*}
 \end{subequations}
 
 We use the following finite difference approximations, derived from the
@@ -15,43 +24,155 @@ $v_{xx}$ in equations \eqref{eq:system}.
 
 \begin{subequations} \label{eq:taylor}
 \begin{align}
-u_t &= \frac{u(x,t+k)-u(x,t)}{k} - \frac{k}{2} u_{tt}(x,\tau) \label{eq:u_t} \\
-v_t &= \frac{v(x,t+k)-v(x,t)}{k} - \frac{k}{2} v_{tt}(x,\sigma) \label{eq:v_t} \\
-u_{xx} &= \frac{u(x-h,t)-2u(x,t)+u(x+h,t)}{h^2} - \frac{h^2}{12} u_{xxxx}(\xi,t) \label{eq:u_xx} \\
-v_{xx} &= \frac{v(x-h,t)-2v(x,t)+v(x+h,t)}{h^2} - \frac{h^2}{12} v_{xxxx}(\epsilon,t) \label{eq:v_xx}
+    u_t &= \frac{u(x,t+k)-u(x,t)}{k} - \frac{k}{2} u_{tt}(x,\tau) \label{eq:u_t} \\
+    v_t &= \frac{v(x,t+k)-v(x,t)}{k} - \frac{k}{2} v_{tt}(x,\sigma) \label{eq:v_t}
+    \\
+    u_{xx} &= \frac{u(x-h,t)-2u(x,t)+u(x+h,t)}{h^2} - \frac{h^2}{12} u_{xxxx}(\xi,t) \label{eq:u_xx} \\
+    v_{xx} &= \frac{v(x-h,t)-2v(x,t)+v(x+h,t)}{h^2} - \frac{h^2}{12} v_{xxxx}(\epsilon,t) \label{eq:v_xx}
 \end{align}
 \end{subequations}
 
-By discarding the truncation terms from equations \eqref{eq:taylor} and
-letting $\ub_{i,j}$ and $\vb_{i,j}$ approximate the true solutions
-$u(x_i,t_j)$ and $v(x_i,t_j)$ respectively we can replace equations
-\eqref{eq:system} with the following system of equations.
+By discarding the truncation terms from equations \eqref{eq:taylor} and letting
+$U_{i,j}$ and $V_{i,j}$ approximate the true solutions $u(x_i,t_j)$ and
+$v(x_i,t_j)$ respectively we can replace equations \eqref{eq:system} with the
+following system of equations. We write $f(u_i^j,v_i^j)) = f_i^j$ and
+$g(u_i^j,v_i^j)) = g_i^j$.
 
 \begin{subequations} \label{eq:approx_sys}
 \begin{align}
-\frac{\ub_{i,j+1} - \ub_{i,j}}{k} &=
-    D_u \left( \frac{\ub_{i-1,j}-2\ub_{i,j}+\ub{i+1,j}}{h^2} \right) +
-    \ub_{i,j}(1-\ub_{i,j-1}) -
-    \frac{a\ub_{i,j}\vb_{i,j}}{1+\lambda \ub_{i,j-1}} \label{eq:approx_prey}
-    \\
-\frac{\vb_{i,j+1} - \vb_{i,j}}{k} &=
-    D_v \left( \frac{\vb_{i-1,j}-2\vb_{i,j}+\vb{i+1,j}}{h^2} \right) -
-    \frac{\vb_{i,j}}{ab} +
-    \frac{a\ub_{i,j}\vb_{i,j}}{1+\lambda \ub_{i,j-1}} \label{eq:approx_pred}
+    \frac{U_{i}^{j+1} - U_{i}^{j}}{k} &=
+        \frac{D_u}{2} \left\{
+            \left[ \frac{U_{i-1}^{j+1}-2U_{i}^{j+1}+U_{i+1}^{j+1}}{h^2} \right] +
+            \left[ \frac{U_{i-1}^{j}-2U_{i}^{j}+U_{i+1}^{j}}{h^2} \right]
+        \right\} + f_{i}^{j} \label{eq:approx_prey}
+        \\
+    \frac{V_{i}^{j+1} - V_{i}^{j}}{k} &=
+        \frac{D_v}{2} \left\{
+            \left[ \frac{V_{i-1}^{j+1}-2V_{i}^{j+1}+V_{i+1}^{j+1}}{h^2} \right] +
+            \left[ \frac{V_{i-1}^{j}-2V_{i}^{j}+V_{i+1}^{j}}{h^2} \right]
+        \right\} + g_{i}^{j} \label{eq:approx_pred}
 \end{align}
 \end{subequations}
 
-Multiplying equations \eqref{eq:approx_sys} throughout by $k$ and
-rearranging the terms yields:
+Multiplying equations \eqref{eq:approx_sys} throughout by $2k$ and rearranging
+the terms yields the following with $r = D_u k / h^2$ and $s = D_v k / h^2$.
 
 \begin{subequations} \label{eq:rearranged_approx_sys}
 \begin{align}
-\ub_{i,j+1} &= r_u \ub_{i-1,j} + (1 - 2r_u) \ub_{i,j} + r_u \ub_{i+1,j} +
-    k \ub_{i,j} - k \ub_{i,j-1} - \frac{ka\ub_{i,j}\vb_{i,j}}{1+\lambda \ub_{i,j-1}} \label{eq:rearranged_prey}
-    \\
-\vb_{i,j+1} &= r_v \vb_{i-1,j} + (1 - 2r_v) \vb_{i,j} + r_v \vb_{i+1,j} -
-    \frac{k\vb_{i,j}}{ab} + \frac{ka\ub_{i,j}\vb_{i,j}}{b(1+\lambda \ub_{i,j})} \label{eq:rearranged_pred}
+    (2+2r) U_{i}^{j+1} - r U_{i-1}^{j+1} - r U_{i+1}^{j+1} &=
+        (2-2r) U_{i}^{j} + r U_{i-1}^{j} + r U_{i+1}^{j} + 2k f_{i}^{j}
+        \\
+    (2+2s) V_{i}^{j+1} - s V_{i-1}^{j+1} - s V_{i+1}^{j+1} &=
+        (2-2s) V_{i}^{j} + s V_{i-1}^{j} + s V_{i+1}^{j} + 2k g_{i}^{j}
 \end{align}
 \end{subequations}
 
-where $r_u = D_u k / h^2$ and $r_v = D_v k / h^2$.
+
+We now investigate the boundary conditions. When $i=0$ we have may use the
+central difference formula for the first derivatives as follows:
+
+\begin{subequations}
+\begin{align}
+    \frac{\partial U_{0}^{j+1}}{\partial x} &\approx \frac{{U_1}^{j+1} - U_{-1}^{j+1}}{2h} \\
+    \frac{\partial V_{0}^{j+1}}{\partial x} &\approx \frac{{V_1}^{j+1} - V_{-1}^{j+1}}{2h}
+\end{align}
+\end{subequations}
+
+Since the derivatives at the boundaries are given as 0 this implies that:
+
+\begin{subequations}
+\begin{align}
+    U_{1}^{j+1} &= U_{-1}^{j+1} \\
+    V_{1}^{j+1} &= V_{-1}^{j+1}
+\end{align}
+\end{subequations}
+
+The same argument follows for the right endpoint where $i=N$ and we have:
+
+\begin{subequations}
+\begin{align}
+    U_{N-1}^{j+1} &= U_{N-1}^{j+1} \\
+    V_{N+1}^{j+1} &= V_{N-1}^{j+1}
+\end{align}
+\end{subequations}
+
+We may then substitute these into their respective equations so that:
+
+\begin{subequations} \label{eq:rearranged_approx_sys_endpoints}
+\begin{align}
+    (2+2r) U_{0}^{j+1} - 2r U_{1}^{j+1} &=
+        (2-2r) U_{0}^{j} + 2r U_{1}^{j} + 2k f_{i}^{j}
+        \\
+    (2+2s) V_{0}^{j+1} - 2s V_{1}^{j+1} &=
+        (2-2s) V_{0}^{j} + 2s V_{1}^{j} + 2k g_{i}^{j}
+        \\
+    (2+2r) U_{N}^{j+1} - 2r U_{N-1}^{j+1} &=
+        (2-2r) U_{N}^{j} + 2r U_{N-1}^{j} + 2k f_{i}^{j}
+        \\
+    (2+2s) V_{N}^{j+1} - 2s V_{N-1}^{j+1} &=
+        (2-2s) V_{N}^{j} + 2s V_{N-1}^{j} + 2k g_{i}^{j}
+\end{align}
+\end{subequations}
+
+These systems may be rewritten into the following matrix equations:
+
+\begin{align}
+\begin{bmatrix}
+    2+2r   & -2r    & \dots  & 0 \\
+    -r     & 2+2r   & \dots  & 0 \\
+    0      & -r     & \ddots & \vdots \\
+    \vdots & \vdots & \ddots & -r   \\
+    0      & 0      & -2r    & 2+2r
+\end{bmatrix}
+\begin{bmatrix}
+    f_1^{j+1} \\
+    f_2^{j+1} \\
+    f_3^{j+1} \\
+    \vdots    \\
+    f_n^{j+1}
+\end{bmatrix}
+&=
+\begin{bmatrix}
+    2-2r   & 2r     & \dots  & 0 \\
+    r      & 2-2r   & \dots  & 0 \\
+    0      & r      & \ddots & \vdots \\
+    \vdots & \vdots & \ddots & r   \\
+    0      & 0      & 2r     & 2-2r
+\end{bmatrix}
+\begin{bmatrix}
+    f_1^{j} \\
+    f_2^{j} \\
+    f_3^{j} \\
+    \vdots    \\
+    f_n^{j}
+\end{bmatrix} \\[10pt]
+\begin{bmatrix}
+    2+2s   & -2s    & \dots  & 0 \\
+    -s     & 2+2s   & \dots  & 0 \\
+    0      & -s     & \ddots & \vdots \\
+    \vdots & \vdots & \ddots & -s   \\
+    0      & 0      & -2s    & 2+2s
+\end{bmatrix}
+\begin{bmatrix}
+    g_1^{j+1} \\
+    g_2^{j+1} \\
+    g_3^{j+1} \\
+    \vdots    \\
+    g_n^{j+1}
+\end{bmatrix}
+&=
+\begin{bmatrix}
+    2-2s   & 2s     & \dots  & 0 \\
+    s      & 2-2s   & \dots  & 0 \\
+    0      & s      & \ddots & \vdots \\
+    \vdots & \vdots & \ddots & s   \\
+    0      & 0      & 2s     & 2-2s
+\end{bmatrix}
+\begin{bmatrix}
+    g_1^{j} \\
+    g_2^{j} \\
+    g_3^{j} \\
+    \vdots    \\
+    g_n^{j}
+\end{bmatrix}
+\end{align}
