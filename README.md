@@ -43,6 +43,8 @@ Some documents related to parabolic PDEs and coupled equations.
 * [Numerical Methods for the Solution of Partial Differential Equations](http://www.aei.mpg.de/~rezzolla/lnotes/Evolution_Pdes/evolution_pdes_lnotes.pdf)
 * [Crank Nicolson Method for Solving Parabolic Partial Differential Equations](http://www.kindipublication.com/Archives/IJA2M/Vol1Num3/IJA2M-0813-2.pdf)
 * [The Crank-Nicholson scheme](http://farside.ph.utexas.edu/teaching/329/lectures/node80.html)
+* [von Neumann Stability Analysis The Diffusion Equation](http://www.physics.byu.edu/faculty/petersonb/Phys430/DiffusionStability.pdf)
+* [On the Stability of the Iterated Crank-Nicholson Method in Numerical Relativity](http://cds.cern.ch/record/399040/files/9909026.pdf)
 
 ### Books
 
