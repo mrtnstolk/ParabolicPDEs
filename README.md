@@ -23,7 +23,7 @@ the **Research links** section below.
 
 ## Research links
 
-Some initial documents related to parabolic PDEs and coupled equations.
+Some documents related to parabolic PDEs and coupled equations.
 
 ### Online
 
@@ -37,6 +37,9 @@ Some initial documents related to parabolic PDEs and coupled equations.
 * [Derivation of the Crank-Nicolson scheme](http://www.cems.uvm.edu/~tlakoba/math337/notes_13.pdf)
 * [2D Heat Equation Modeled by Crank-Nicolson Method](http://wiki.tomabel.org/images/c/c2/Paul_Summers_Final_Write_up.pdf)
 * [Numerically Solving PDE’s: Crank-Nicholson Algorithm](http://www.sfu.ca/~rjones/bus864/notes/notes2.pdf)
+* [Crank Nicolson Solution to the Heat Equation](http://web.cecs.pdx.edu/~gerry/class/ME448/notes/pdf/CN_slides.pdf)
+* [A Critique of the Crank Nicolson Scheme](http://www.wilmott.com/pdfs/071203_duffy.pdf)
+* [Numerical Solutions to Partial Differential Equations](http://www.maths.tcd.ie/~butler/NUMERICAL_ANALYSIS/pde.pdf)
 
 ### Books
 
