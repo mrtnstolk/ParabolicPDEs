@@ -41,6 +41,7 @@ Some documents related to parabolic PDEs and coupled equations.
 * [A Critique of the Crank Nicolson Scheme](http://www.wilmott.com/pdfs/071203_duffy.pdf)
 * [Numerical Solutions to Partial Differential Equations](http://www.maths.tcd.ie/~butler/NUMERICAL_ANALYSIS/pde.pdf)
 * [Numerical Methods for the Solution of Partial Differential Equations](http://www.aei.mpg.de/~rezzolla/lnotes/Evolution_Pdes/evolution_pdes_lnotes.pdf)
+* [Crank Nicolson Method for Solving Parabolic Partial Differential Equations](http://www.kindipublication.com/Archives/IJA2M/Vol1Num3/IJA2M-0813-2.pdf)
 
 ### Books
 
