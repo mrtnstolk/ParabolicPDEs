@@ -1,1 +1,55 @@
 \section{Stability Analysis}
+
+We investigate the stabiliy of the Crank-Nicolson method using the equation
+from \eqref{eq:prey}. A similar argument may be used to show the stability of
+the Crank-Nicolson method using the equation from \eqref{eq:pred}.
+
+\begin{align} \label{eq:stab_initial}
+\frac{U_m^{n+1} - U_m^n}{\tau} &=
+    \frac{D_u}{2} \left(
+        \frac{U_{m-1}^{n+1} - 2 U_{m}^{n+1} + U_{m+1}^{n+1}}{h^2} +
+        \frac{U_{m-1}^{n} - 2 U_{m}^{n} + U_{m+1}^{n}}{h^2}
+    \right)
+\end{align}
+
+We then substitute $U_m^n = \xi^n e^{ikmh}$ and rearrange the terms in
+\eqref{eq:stab_initial} such that:
+
+% Can't split large brackets over multiple lines so we create dummy brackets.
+\begin{align} \label{eq:stab_subbed}
+\begin{split}
+\xi^{n+1} e^{ikmh} - \xi^{n} e^{ikmh} =
+    \frac{D_u \tau}{2h^2} \left(
+        \xi^{n+1} e^{ik(m+1)h} + \xi^{n} e^{ik(m+1)h} \right. \\
+        - 2 \xi^{n+1} e^{ikmh} - 2 \xi^{n} e^{ikmh} \\
+        \left. + \xi^{n+1} e^{ik(m-1)h} + \xi^{n} e^{ik(m-1)h} \right)
+\end{split}
+\end{align}
+
+We may then divide throughout by $\xi^{n} e^{ikmh}$ which gives the following:
+
+\begin{align} \label{eq:stab_divided}
+\xi - 1 &= \frac{D_u \tau}{2h^2} \left(
+    \xi e^{ikh} + e^{ikh} - 2 \xi - 2 + \xi e^{-ikh} + e^{-ikh}
+    \right)
+\end{align}
+
+Rearranging \eqref{eq:stab_divided} and replacing the complex exponential with
+the trigonometric identity gives us:
+
+\begin{align} \label{eq:stab_trig}
+\xi &= 1  - \frac{D_u \tau}{2h^2} (\xi + 1) [1 - \cos(kh)]
+\end{align}
+
+When we take the absolute value of \eqref{eq:stab_trig} to following inequality
+holds $\forall \tau \in R$.
+
+\begin{align} \label{eq:stab_abs}
+| \xi | &= \left|
+    \frac{1 - D_u \tau / h^2 [1 - \cos(kh)]}
+         {1 + D_u \tau / h^2 [1 - \cos(kh)]}
+    \right| \leq 1
+\end{align}
+
+Since \eqref{eq:stab_abs} is true for any $\tau$ the Crank-Nicolson model is
+unconditionally stable.
