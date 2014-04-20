@@ -34,6 +34,9 @@ Some initial documents related to parabolic PDEs and coupled equations.
 * [Crank Nicolson Scheme for the Heat Equation](http://people.sc.fsu.edu/~jpeterson/5-CrankNicolson.pdf)
 * [Crank Nicolson method](http://www3.msiu.ru/~belova/compmod/Crank_nic.pdf)
 * [General Finite Difference Methods](http://www.math.yorku.ca/~hmzhu/Math-6911/lectures/Lecture5/5_BlkSch_FDM.pdf)
+* [Derivation of the Crank-Nicolson scheme](http://www.cems.uvm.edu/~tlakoba/math337/notes_13.pdf)
+* [2D Heat Equation Modeled by Crank-Nicolson Method](http://wiki.tomabel.org/images/c/c2/Paul_Summers_Final_Write_up.pdf)
+* [Numerically Solving PDE’s: Crank-Nicholson Algorithm](http://www.sfu.ca/~rjones/bus864/notes/notes2.pdf)
 
 ### Books
 
