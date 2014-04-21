@@ -1,7 +1,5 @@
 \section{Derivation}
 
-From the problem statement we have the following system of PDEs.
-
 \begin{subequations} \label{eq:system}
 \begin{align}
     u_t &= D_u u_{xx} + f(u,v) \label{eq:prey} \\
@@ -13,13 +11,12 @@ where
 
 \begin{subequations}
 \begin{align*}
-    f(u,v) &= u(1-u) - \frac{auv}{1+\lambda u} \\
-    g(u,v) &= - \frac{v}{ab} + \frac{auv}{b(1+\lambda u)}
+    f(u,v) &= u(1-u) - \frac{kuv}{1+ku} \\
+    g(u,v) &= \frac{1}{b} (\frac{kuv}{1+ku}) - \frac{v}{ab}
 \end{align*}
 \end{subequations}
 
-We use the following finite difference approximations, derived from the
-Taylor series expansion, in place of the $u_t$, $u_{xx}$, $v_t$, and
+We use the Taylor approximation for $u_t$, $u_{xx}$, $v_t$, and
 $v_{xx}$ in equations \eqref{eq:system}.
 
 \begin{subequations} \label{eq:taylor}
@@ -32,89 +29,97 @@ $v_{xx}$ in equations \eqref{eq:system}.
 \end{align}
 \end{subequations}
 
-By discarding the truncation terms from equations \eqref{eq:taylor} and letting
-$U_{i,j}$ and $V_{i,j}$ approximate the true solutions $u(x_i,t_j)$ and
-$v(x_i,t_j)$ respectively we can replace equations \eqref{eq:system} with the
-following system of equations. We write $f(u_i^j,v_i^j)) = f_i^j$ and
-$g(u_i^j,v_i^j)) = g_i^j$.
+By neglecting the truncation terms from equations \eqref{eq:taylor} and let
+$\omega_{i,j}$ and $\Omega_{i,j}$ approximate the true solutions $u(x_i,t_j)$ and
+$v(x_i,t_j)$ we can replace equations \eqref{eq:system} with 
+$f(u_i^j,v_i^j)) = f_i^j$ and $g(u_i^j,v_i^j)) = g_i^j$.
 
 \begin{subequations} \label{eq:approx_sys}
 \begin{align}
-    \frac{U_{i}^{j+1} - U_{i}^{j}}{k} &=
+    \frac{\omega_{i}^{j+1} - \omega_{i}^{j}}{k} &=
         \frac{D_u}{2} \left\{
-            \left[ \frac{U_{i-1}^{j+1}-2U_{i}^{j+1}+U_{i+1}^{j+1}}{h^2} \right] +
-            \left[ \frac{U_{i-1}^{j}-2U_{i}^{j}+U_{i+1}^{j}}{h^2} \right]
+            \left[ \frac{\omega_{i-1}^{j+1}-2\omega_{i}^{j+1}+\omega_{i+1}^{j+1}}{h^2} \right] +
+            \left[ \frac{\omega_{i-1}^{j}-2\omega_{i}^{j}+\omega_{i+1}^{j}}{h^2} \right]
         \right\} + f_{i}^{j} \label{eq:approx_prey}
         \\
-    \frac{V_{i}^{j+1} - V_{i}^{j}}{k} &=
+    \frac{\Omega_{i}^{j+1} - \Omega_{i}^{j}}{k} &=
         \frac{D_v}{2} \left\{
-            \left[ \frac{V_{i-1}^{j+1}-2V_{i}^{j+1}+V_{i+1}^{j+1}}{h^2} \right] +
-            \left[ \frac{V_{i-1}^{j}-2V_{i}^{j}+V_{i+1}^{j}}{h^2} \right]
+            \left[ \frac{\Omega_{i-1}^{j+1}-2\Omega_{i}^{j+1}+\Omega_{i+1}^{j+1}}{h^2} \right] +
+            \left[ \frac{\Omega_{i-1}^{j}-2\Omega_{i}^{j}+\Omega_{i+1}^{j}}{h^2} \right]
         \right\} + g_{i}^{j} \label{eq:approx_pred}
 \end{align}
 \end{subequations}
 
 Multiplying equations \eqref{eq:approx_sys} throughout by $2k$ and rearranging
-the terms yields the following with $r = D_u k / h^2$ and $s = D_v k / h^2$.
+yields the following with $r = D_u k / h^2$ and $s = D_v k / h^2$.
 
 \begin{subequations} \label{eq:rearranged_approx_sys}
 \begin{align}
-    (2+2r) U_{i}^{j+1} - r U_{i-1}^{j+1} - r U_{i+1}^{j+1} &=
-        (2-2r) U_{i}^{j} + r U_{i-1}^{j} + r U_{i+1}^{j} + 2k f_{i}^{j}
+    (2+2r) \omega_{i}^{j+1} - r \omega_{i-1}^{j+1} - r \omega_{i+1}^{j+1} &=
+        (2-2r) \omega_{i}^{j} + r \omega_{i-1}^{j} + r \omega_{i+1}^{j} + 2k f_{i}^{j}
         \\
-    (2+2s) V_{i}^{j+1} - s V_{i-1}^{j+1} - s V_{i+1}^{j+1} &=
-        (2-2s) V_{i}^{j} + s V_{i-1}^{j} + s V_{i+1}^{j} + 2k g_{i}^{j}
+    (2+2s) \Omega_{i}^{j+1} - s \Omega_{i-1}^{j+1} - s \Omega_{i+1}^{j+1} &=
+        (2-2s) \Omega_{i}^{j} + s \Omega_{i-1}^{j} + s \Omega_{i+1}^{j} + 2k g_{i}^{j}
 \end{align}
 \end{subequations}
 
-
-We now investigate the boundary conditions. When $i=0$ we have may use the
-central difference formula for the first derivatives as follows:
+When $i=0$ we can use the central difference formula to estimate the first derivative:
 
 \begin{subequations}
 \begin{align}
-    \frac{\partial U_{0}^{j+1}}{\partial x} &\approx \frac{{U_1}^{j+1} - U_{-1}^{j+1}}{2h} \\
-    \frac{\partial V_{0}^{j+1}}{\partial x} &\approx \frac{{V_1}^{j+1} - V_{-1}^{j+1}}{2h}
+    \frac{\partial \omega_{0}^{j+1}}{\partial x} &\approx \frac{{\omega_1}^{j+1} - \omega_{-1}^{j+1}}{2h} = 0
+    \implies  \omega_{-1}^{j+1} = \omega_{1}^{j+1}  \\
+    \frac{\partial \Omega_{0}^{j+1}}{\partial x} &\approx \frac{{\Omega_1}^{j+1} - \Omega_{-1}^{j+1}}{2h} = 0
+    \implies  \Omega_{-1}^{j+1} = \Omega_{1}^{j+1} 
 \end{align}
 \end{subequations}
 
-Since the derivatives at the boundaries are given as 0 this implies that:
-
-\begin{subequations}
-\begin{align}
-    U_{1}^{j+1} &= U_{-1}^{j+1} \\
-    V_{1}^{j+1} &= V_{-1}^{j+1}
-\end{align}
-\end{subequations}
-
-The same argument follows for the right endpoint where $i=N$ and we have:
-
-\begin{subequations}
-\begin{align}
-    U_{N-1}^{j+1} &= U_{N-1}^{j+1} \\
-    V_{N+1}^{j+1} &= V_{N-1}^{j+1}
-\end{align}
-\end{subequations}
-
-We may then substitute these into their respective equations so that:
+Substituting yields:
 
 \begin{subequations} \label{eq:rearranged_approx_sys_endpoints}
 \begin{align}
-    (2+2r) U_{0}^{j+1} - 2r U_{1}^{j+1} &=
-        (2-2r) U_{0}^{j} + 2r U_{1}^{j} + 2k f_{i}^{j}
+     (2+2r) \omega_{0}^{j+1} -2 r \omega_{1}^{j+1} &=
+        (2-2r) \omega_{0}^{j} +2 r \omega_{1}^{j} + 2k f_{0}^{j}
         \\
-    (2+2s) V_{0}^{j+1} - 2s V_{1}^{j+1} &=
-        (2-2s) V_{0}^{j} + 2s V_{1}^{j} + 2k g_{i}^{j}
-        \\
-    (2+2r) U_{N}^{j+1} - 2r U_{N-1}^{j+1} &=
-        (2-2r) U_{N}^{j} + 2r U_{N-1}^{j} + 2k f_{i}^{j}
-        \\
-    (2+2s) V_{N}^{j+1} - 2s V_{N-1}^{j+1} &=
-        (2-2s) V_{N}^{j} + 2s V_{N-1}^{j} + 2k g_{i}^{j}
+    (2+2s) \Omega_{0}^{j+1} - 2s \Omega_{1}^{j+1} &=
+        (2-2s) \Omega_{0}^{j} + 2s \Omega_{1}^{j} + 2k g_{i}^{j}
 \end{align}
 \end{subequations}
 
-These systems may be rewritten into the following matrix equations:
+When $i=1...N-2$ we have:
+\begin{subequations} \label{eq:rearranged_approx_sys}
+\begin{align}
+    (2+2r) \omega_{i}^{j+1} - r \omega_{i-1}^{j+1} - r \omega_{i+1}^{j+1} &=
+        (2-2r) \omega_{i}^{j} + r \omega_{i-1}^{j} + r \omega_{i+1}^{j} + 2k f_{i}^{j}
+        \\
+    (2+2s) \Omega_{i}^{j+1} - s \Omega_{i-1}^{j+1} - s \Omega_{i+1}^{j+1} &=
+        (2-2s) \Omega_{i}^{j} + s \Omega_{i-1}^{j} + s \Omega_{i+1}^{j} + 2k g_{i}^{j}
+\end{align}
+\end{subequations}
+
+When $i=N-1$ and by using the central difference formula we have:
+\begin{subequations}
+\begin{align}
+    \frac{\partial \omega_{N-1}^{j+1}}{\partial x} &\approx \frac{{\omega_{N}}^{j+1} - \omega_{N-2}^{j+1}}{2h} = 0
+    \implies  \omega_{N}^{j+1} = \omega_{N-2}^{j+1}  \\
+    \frac{\partial \Omega_{N-1}^{j+1}}{\partial x} &\approx \frac{{\Omega_{N}}^{j+1} - \Omega_{N-2}^{j+1}}{2h} = 0
+    \implies  \Omega_{N}^{j+1} = \Omega_{N-2}^{j+1} 
+\end{align}
+\end{subequations}
+
+and
+
+\begin{subequations} \label{eq:rearranged_approx_sys}
+\begin{align}
+    (2+2r) \omega_{N-1}^{j+1} - 2r \omega_{N}^{j+1} &=
+        (2-2r) \omega_{N-1}^{j} + 2r \omega_{N}^{j} + 2k f_{i}^{j}
+        \\
+    (2+2s) \Omega_{N-1}^{j+1} - 2s \Omega_{N-2}^{j+1} &=
+        (2-2s) \Omega_{N-1}^{j} + 2s \Omega_{N-2}^{j} + 2k g_{i}^{j}
+\end{align}
+\end{subequations}
+
+Which can be written as the following following matrix:
 
 \begin{align}
 \begin{bmatrix}
