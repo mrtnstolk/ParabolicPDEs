@@ -22,7 +22,7 @@ A = build_matrix(rand(), rand(), rand(), n);
 for i = 1:n
     for j = 1:n
         if i < (j-1) || i > (j+1)
-            if A(i,j) ~= 0;
+            if A(i,j) ~= 0
                 warning('"test_tridiag_build" failed.');
                 success = false;
                 return;
